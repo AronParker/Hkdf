@@ -67,10 +67,10 @@ namespace System.Security.Cryptography
         /// Performs the HKDF-Expand function.
         /// </summary>
         /// <param name="prk">The pseudorandom key of at least HashLen bytes in size (usually, the output from the <see cref="Extract(byte[], byte[])"/>)</param>
-        /// <param name="info">The optional context and application specific information</param>
         /// <param name="length">The length of output keying material in bytes (must be greater or equal to 0 and smaller or equal to 255*<see cref="HashLength"/>)</param>
+        /// <param name="info">The optional context and application specific information</param>
         /// <returns>The output keying material</returns>
-        public byte[] Expand(byte[] prk, byte[] info, int length)
+        public byte[] Expand(byte[] prk, int length, byte[] info = null)
         {
             if (prk == null)
                 throw new ArgumentNullException(nameof(prk));

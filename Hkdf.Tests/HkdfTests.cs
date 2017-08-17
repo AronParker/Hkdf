@@ -23,7 +23,7 @@ namespace System.Security.Cryptography.Tests
 
                 Assert.Equal(expectedPrk, actualPrk);
 
-                var actualOkm = hkdf.Expand(actualPrk, info, len);
+                var actualOkm = hkdf.Expand(actualPrk, len, info);
 
                 Assert.Equal(expectedOkm, actualOkm);
             }
@@ -46,7 +46,7 @@ namespace System.Security.Cryptography.Tests
 
                 Assert.Equal(expectedPrk, actualPrk);
 
-                var actualOkm = hkdf.Expand(actualPrk, info, len);
+                var actualOkm = hkdf.Expand(actualPrk, len, info);
                 
                 Assert.Equal(expectedOkm, actualOkm);
             }
@@ -69,7 +69,7 @@ namespace System.Security.Cryptography.Tests
 
                 Assert.Equal(expectedPrk, actualPrk);
 
-                var actualOkm = hkdf.Expand(actualPrk, info, len);
+                var actualOkm = hkdf.Expand(actualPrk, len, info);
 
                 Assert.Equal(expectedOkm, actualOkm);
             }
