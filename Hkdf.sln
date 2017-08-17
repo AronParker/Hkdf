@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hkdf", "Hkdf\Hkdf.csproj", "{323D4B89-2E38-4081-A4A8-41C743CAF684}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hkdf.Tests", "Hkdf.Tests\Hkdf.Tests.csproj", "{8C7E5ECF-BDDF-4095-9C12-D5B5C81CD24F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{323D4B89-2E38-4081-A4A8-41C743CAF684}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{323D4B89-2E38-4081-A4A8-41C743CAF684}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{323D4B89-2E38-4081-A4A8-41C743CAF684}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C7E5ECF-BDDF-4095-9C12-D5B5C81CD24F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C7E5ECF-BDDF-4095-9C12-D5B5C81CD24F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C7E5ECF-BDDF-4095-9C12-D5B5C81CD24F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C7E5ECF-BDDF-4095-9C12-D5B5C81CD24F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
