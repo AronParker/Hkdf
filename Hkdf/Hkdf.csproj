@@ -9,12 +9,14 @@
     <Product>Hkdf</Product>
     <PackageProjectUrl>https://github.com/AronParker/Hkdf</PackageProjectUrl>
     <RepositoryUrl>https://github.com/AronParker/Hkdf</RepositoryUrl>
-    <PackageTags>Cryptography KDF</PackageTags>
+    <PackageTags>C# .NET Crypto Cryptography KDF</PackageTags>
     <PackageLicenseUrl>https://github.com/AronParker/Hkdf/blob/master/LICENSE</PackageLicenseUrl>
     <Copyright>Aron Parker</Copyright>
     <AssemblyVersion>0.8.2.0</AssemblyVersion>
     <FileVersion>0.8.2.0</FileVersion>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <Description>An implementation of the HMAC-based Extract-and-Expand Key Derivation Function in C#.</Description>
   </PropertyGroup>
 
 </Project>
