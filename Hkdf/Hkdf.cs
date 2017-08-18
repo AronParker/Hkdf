@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace System.Security.Cryptography
+namespace AronParker.Hkdf
 {
     /// <summary>
     /// Implementation of the HMAC-based Extract-and-Expand Key Derivation Function according to https://tools.ietf.org/html/rfc5869.
@@ -10,7 +10,6 @@ namespace System.Security.Cryptography
     {
         private HMAC _hmac;
         private HashAlgorithmName _hashAlgorithm;
-        private int _hashLength;
 
         private byte[] _tInfoN;
         private bool _disposed = false;
@@ -20,19 +19,19 @@ namespace System.Security.Cryptography
             switch (hashAlgorithm.Name)
             {
                 case nameof(HashAlgorithmName.MD5):
-                    _hashLength = 128 / 8;
+                    HashLength = 128 / 8;
                     break;
                 case nameof(HashAlgorithmName.SHA1):
-                    _hashLength = 160 / 8;
+                    HashLength = 160 / 8;
                     break;
                 case nameof(HashAlgorithmName.SHA256):
-                    _hashLength = 256 / 8;
+                    HashLength = 256 / 8;
                     break;
                 case nameof(HashAlgorithmName.SHA384):
-                    _hashLength = 384 / 8;
+                    HashLength = 384 / 8;
                     break;
                 case nameof(HashAlgorithmName.SHA512):
-                    _hashLength = 512 / 8;
+                    HashLength = 512 / 8;
                     break;
                 default:
                     throw new NotSupportedException($"The hash algorithm {hashAlgorithm} is not supported.");
@@ -41,6 +40,7 @@ namespace System.Security.Cryptography
             _hashAlgorithm = hashAlgorithm;
         }
 
+        public int HashLength { get; }
 
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace System.Security.Cryptography
             if (ikm == null)
                 throw new ArgumentNullException(nameof(ikm));
             if (salt == null)
-                salt = new byte[_hashLength];
+                salt = new byte[HashLength];
             if (_disposed)
                 throw new ObjectDisposedException(GetType().FullName);
 
@@ -74,9 +74,9 @@ namespace System.Security.Cryptography
         {
             if (prk == null)
                 throw new ArgumentNullException(nameof(prk));
-            if (prk.Length < _hashLength)
-                throw new ArgumentException($"The length of prk must be equal or greater than {_hashLength} octets.", nameof(prk));
-            if (length < 0 || length > 255 * _hashLength)
+            if (prk.Length < HashLength)
+                throw new ArgumentException($"The length of prk must be equal or greater than {HashLength} octets.", nameof(prk));
+            if (length < 0 || length > 255 * HashLength)
                 throw new ArgumentOutOfRangeException(nameof(length));
             if (_disposed)
                 throw new ObjectDisposedException(GetType().FullName);
@@ -85,8 +85,8 @@ namespace System.Security.Cryptography
             if (info == null)
                 info = Array.Empty<byte>();
 
-            if (_tInfoN == null || _tInfoN.Length != _hashLength + info.Length + sizeof(byte))
-                _tInfoN = new byte[_hashLength + info.Length + sizeof(byte)];
+            if (_tInfoN == null || _tInfoN.Length != HashLength + info.Length + sizeof(byte))
+                _tInfoN = new byte[HashLength + info.Length + sizeof(byte)];
 
             InitializeHMAC(prk);
 
@@ -94,23 +94,23 @@ namespace System.Security.Cryptography
             var offset = 0;
 
             var n = 1;
-            var tInfoNOffset = _hashLength;
+            var tInfoNOffset = HashLength;
 
-            Array.Copy(info, 0, _tInfoN, _hashLength, info.Length);
+            Array.Copy(info, 0, _tInfoN, HashLength, info.Length);
 
             while (true)
             {
-                _tInfoN[_hashLength + info.Length] = (byte)(n++);
+                _tInfoN[HashLength + info.Length] = (byte)(n++);
 
                 var hmac = _hmac.ComputeHash(_tInfoN, tInfoNOffset, _tInfoN.Length - tInfoNOffset);
                 tInfoNOffset = 0;
 
-                Array.Copy(hmac, 0, result, offset, Math.Min(result.Length - offset, _hashLength));
+                Array.Copy(hmac, 0, result, offset, Math.Min(result.Length - offset, HashLength));
 
-                if ((offset += _hashLength) >= length)
+                if ((offset += HashLength) >= length)
                     break;
 
-                Array.Copy(hmac, 0, _tInfoN, 0, _hashLength);
+                Array.Copy(hmac, 0, _tInfoN, 0, HashLength);
             }
 
             return result;
